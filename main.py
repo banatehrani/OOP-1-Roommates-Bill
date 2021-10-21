@@ -1,3 +1,6 @@
+from fpdf import FPDF
+
+
 class Bill:
     """
     Contains data about a bill such as amount and period.
@@ -20,7 +23,7 @@ class Roommate:
 
     def pays(self, bill, roommate2):
         weight = self.days_in_house / (self.days_in_house + roommate2.days_in_house)
-        return weight * bill.amount
+        return round(weight * bill.amount, 2)
 
 
 class PdfReport:
@@ -34,12 +37,34 @@ class PdfReport:
         self.filename = filename
 
     def generate(self, roommate1, roommate2, bill):
-        pass
+        pdf = FPDF(orientation='P', unit='pt', format='A4')
+        pdf.add_page()
+
+        # Insert title
+        pdf.set_font(family='Times', size=24, style='B')
+        pdf.cell(w=0, h=80, txt="Roommates Bill", border=1, align="C", ln=1)
+
+        # Insert period label and value
+        pdf.cell(w=100, h=40, txt="Period:", border=1)
+        pdf.cell(w=150, h=40, txt=bill.period, border=1, ln=1)
+
+        # Insert name and due amount of the first roommate
+        pdf.cell(w=100, h=40, txt=roommate1.name, border=1)
+        pdf.cell(w=150, h=40, txt=str(roommate1.pays(bill, roommate2)), border=1, ln=1)
+
+        # Insert name and due amount of the second roommate
+        pdf.cell(w=100, h=40, txt=roommate2.name, border=1)
+        pdf.cell(w=150, h=40, txt=str(roommate2.pays(bill, roommate1)), border=1)
+
+        pdf.output(self.filename)
 
 
-the_bill = Bill(amount=120, period="March 2021")
+the_bill = Bill(amount=120, period="April 2021")
 john = Roommate(name="John", days_in_house=20)
 marry = Roommate(name="Marry", days_in_house=25)
 
-print(f"{john.name} pays {round(john.pays(bill=the_bill, roommate2=marry), 2)}.")
-print(f"{marry.name} pays {round(marry.pays(bill=the_bill, roommate2=john), 2)}.")
+print(f"{john.name} pays {john.pays(bill=the_bill, roommate2=marry)}.")
+print(f"{marry.name} pays {marry.pays(bill=the_bill, roommate2=john)}.")
+
+pdf_report = PdfReport(filename="Report1.pdf")
+pdf_report.generate(roommate1=john, roommate2=marry, bill=the_bill)
