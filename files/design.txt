@@ -1,0 +1,23 @@
+Title: Roommates Bill
+
+
+Description: An app that receives as input the amount of a bill for a particular period
+and the days that each of the roommates stayed in the house for that period
+and returns how much each roommate has to pay. It also generates a PDF report
+stating the names of the roommates, the period, and how much each of them has to pay.
+
+
+Objects:
+
+         Bill:
+            amount
+            period
+
+         roommate:
+            name
+            days_in_house
+            pays(bill)
+
+         PdfReport:
+            filename
+            generate(roommate1, roommate2, bill)
