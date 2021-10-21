@@ -1,3 +1,5 @@
+import webbrowser
+
 from fpdf import FPDF
 
 
@@ -62,6 +64,8 @@ class PdfReport:
         pdf.cell(w=150, h=25, txt=str(roommate2.pays(bill, roommate1)), border=0)
 
         pdf.output(self.filename)
+
+        webbrowser.open(self.filename)  # Convert it to absolute path for Mac and Linux
 
 
 the_bill = Bill(amount=120, period="April 2021")
