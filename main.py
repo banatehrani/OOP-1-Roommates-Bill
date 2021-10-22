@@ -81,8 +81,8 @@ the_bill = Bill(amount, period)
 roommate1 = Roommate(name1, days_in_house1)
 roommate2 = Roommate(name2, days_in_house2)
 
-print(f"{name1} pays {roommate1.pays(bill=the_bill, roommate2=roommate2)}.")
-print(f"{name2} pays {roommate2.pays(bill=the_bill, roommate2=roommate1)}.")
+print(f"{roommate1.name} pays {roommate1.pays(bill=the_bill, roommate2=roommate2)}.")
+print(f"{roommate2.name} pays {roommate2.pays(bill=the_bill, roommate2=roommate1)}.")
 
 pdf_report = PdfReport(filename=f"{the_bill.period}.pdf")
 pdf_report.generate(roommate1, roommate2, bill=the_bill)
