@@ -6,7 +6,7 @@ from fpdf import FPDF
 
 class PdfReport:
     """
-    Creates a .pdf file that contains information about
+    Creates an output file that contains information about
     the roommates such as their names, their due amounts
     and the period of the bill.
     """
@@ -39,7 +39,9 @@ class PdfReport:
         pdf.cell(w=100, h=25, txt=roommate2.name, border=0)
         pdf.cell(w=150, h=25, txt=str(roommate2.pays(bill, roommate1)), border=0)
 
+        # Create the report
         pdf.output(f"pdfreports/{self.filename}")
 
+        # Change directory to pdfreports adn open the pdf
         os.chdir("pdfreports")
         webbrowser.open(self.filename)  # Convert it to absolute path for Mac and Linux
