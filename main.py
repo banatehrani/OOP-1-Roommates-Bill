@@ -69,7 +69,7 @@ class PdfReport:
 
 
 amount = float(input("Please enter the bill amount: "))
-period = float(input("What is the bill period? e.g December 2020:  "))
+period = input("What is the bill period? e.g December 2020:  ")
 
 name1 = input("What is your name? ")
 days_in_house1 = int(input(f"How many days did {name1} stay in the house during the bill period? "))
@@ -84,5 +84,5 @@ roommate2 = Roommate(name2, days_in_house2)
 print(f"{name1} pays {roommate1.pays(bill=the_bill, roommate2=roommate2)}.")
 print(f"{name2} pays {roommate2.pays(bill=the_bill, roommate2=roommate1)}.")
 
-pdf_report = PdfReport(filename="Report1.pdf")
+pdf_report = PdfReport(filename=f"{the_bill.period}.pdf")
 pdf_report.generate(roommate1, roommate2, bill=the_bill)
