@@ -68,12 +68,21 @@ class PdfReport:
         webbrowser.open(self.filename)  # Convert it to absolute path for Mac and Linux
 
 
-the_bill = Bill(amount=120, period="April 2021")
-john = Roommate(name="John", days_in_house=20)
-marry = Roommate(name="Marry", days_in_house=25)
+amount = float(input("Please enter the bill amount: "))
+period = float(input("What is the bill period? e.g December 2020:  "))
 
-print(f"{john.name} pays {john.pays(bill=the_bill, roommate2=marry)}.")
-print(f"{marry.name} pays {marry.pays(bill=the_bill, roommate2=john)}.")
+name1 = input("What is your name? ")
+days_in_house1 = int(input(f"How many days did {name1} stay in the house during the bill period? "))
+
+name2 = input("What is the name of the other roommate? ")
+days_in_house2 = int(input(f"How many days did {name2} stay in the house during the bill period? "))
+
+the_bill = Bill(amount, period)
+roommate1 = Roommate(name1, days_in_house1)
+roommate2 = Roommate(name2, days_in_house2)
+
+print(f"{name1} pays {roommate1.pays(bill=the_bill, roommate2=roommate2)}.")
+print(f"{name2} pays {roommate2.pays(bill=the_bill, roommate2=roommate1)}.")
 
 pdf_report = PdfReport(filename="Report1.pdf")
-pdf_report.generate(roommate1=john, roommate2=marry, bill=the_bill)
+pdf_report.generate(roommate1, roommate2, bill=the_bill)
